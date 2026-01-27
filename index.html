@@ -237,7 +237,9 @@
       .skill-category-items {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.4s ease-out, padding 0.4s ease-out;
+        transition:
+          max-height 0.4s ease-out,
+          padding 0.4s ease-out;
         padding: 0 1.5rem;
         background: rgba(0, 0, 0, 0.3);
         border-radius: 0 0 12px 12px;
@@ -266,7 +268,9 @@
         font-size: 0.9rem;
         opacity: 0;
         transform: translateY(-10px);
-        transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+        transition:
+          opacity 0.3s ease 0.1s,
+          transform 0.3s ease 0.1s;
       }
 
       .skill-category:hover .skill-item {
@@ -274,14 +278,30 @@
         transform: translateY(0);
       }
 
-      .skill-category:hover .skill-item:nth-child(1) { transition-delay: 0.05s; }
-      .skill-category:hover .skill-item:nth-child(2) { transition-delay: 0.1s; }
-      .skill-category:hover .skill-item:nth-child(3) { transition-delay: 0.15s; }
-      .skill-category:hover .skill-item:nth-child(4) { transition-delay: 0.2s; }
-      .skill-category:hover .skill-item:nth-child(5) { transition-delay: 0.25s; }
-      .skill-category:hover .skill-item:nth-child(6) { transition-delay: 0.3s; }
-      .skill-category:hover .skill-item:nth-child(7) { transition-delay: 0.35s; }
-      .skill-category:hover .skill-item:nth-child(8) { transition-delay: 0.4s; }
+      .skill-category:hover .skill-item:nth-child(1) {
+        transition-delay: 0.05s;
+      }
+      .skill-category:hover .skill-item:nth-child(2) {
+        transition-delay: 0.1s;
+      }
+      .skill-category:hover .skill-item:nth-child(3) {
+        transition-delay: 0.15s;
+      }
+      .skill-category:hover .skill-item:nth-child(4) {
+        transition-delay: 0.2s;
+      }
+      .skill-category:hover .skill-item:nth-child(5) {
+        transition-delay: 0.25s;
+      }
+      .skill-category:hover .skill-item:nth-child(6) {
+        transition-delay: 0.3s;
+      }
+      .skill-category:hover .skill-item:nth-child(7) {
+        transition-delay: 0.35s;
+      }
+      .skill-category:hover .skill-item:nth-child(8) {
+        transition-delay: 0.4s;
+      }
     </style>
   </head>
   <body>
@@ -611,7 +631,7 @@
             </div>
             <div class="skill-category-items">
               <span class="skill-item">Git</span>
-              <span class="skill-item">Netlify</span>
+              <span class="skill-item">AWS</span>
               <span class="skill-item">Firebase</span>
             </div>
           </div>
@@ -793,15 +813,15 @@
           // Build form data manually to ensure all fields are included
           const formData = new FormData(form);
           const params = new URLSearchParams();
-          
+
           // Add all form fields to params
           for (const [key, value] of formData.entries()) {
             params.append(key, value);
           }
-          
+
           // Ensure form-name is included (required by Netlify)
-          if (!params.has('form-name')) {
-            params.append('form-name', 'contact');
+          if (!params.has("form-name")) {
+            params.append("form-name", "contact");
           }
 
           const response = await fetch("/", {
@@ -820,9 +840,11 @@
             console.error("Form submission failed:", {
               status: response.status,
               statusText: response.statusText,
-              response: responseText
+              response: responseText,
             });
-            throw new Error(`Form submission failed with status ${response.status}`);
+            throw new Error(
+              `Form submission failed with status ${response.status}`,
+            );
           }
         } catch (error) {
           alert(
