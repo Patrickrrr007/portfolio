@@ -656,18 +656,39 @@
         submitButton.disabled = true;
 
         try {
+          // Build form data manually to ensure all fields are included
           const formData = new FormData(form);
+          const params = new URLSearchParams();
+          
+          // Add all form fields to params
+          for (const [key, value] of formData.entries()) {
+            params.append(key, value);
+          }
+          
+          // Ensure form-name is included (required by Netlify)
+          if (!params.has('form-name')) {
+            params.append('form-name', 'contact');
+          }
+
           const response = await fetch("/", {
             method: "POST",
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: new URLSearchParams(formData).toString(),
+            body: params.toString(),
           });
 
-          if (response.ok) {
+          // Check if response is successful (200-299 status codes)
+          if (response.ok || response.status === 200) {
             alert("Thank you for your message! I will get back to you soon 😊");
             form.reset();
           } else {
-            throw new Error("Form submission failed");
+            // Log response details for debugging
+            const responseText = await response.text();
+            console.error("Form submission failed:", {
+              status: response.status,
+              statusText: response.statusText,
+              response: responseText
+            });
+            throw new Error(`Form submission failed with status ${response.status}`);
           }
         } catch (error) {
           alert(
