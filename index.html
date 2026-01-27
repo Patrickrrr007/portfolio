@@ -1,511 +1,696 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pat's Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #0a0a0a;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      .gradient-text {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .gradient-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+
+      .card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
+        border-color: rgba(102, 126, 234, 0.5);
+      }
+
+      .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        transition: width 0.3s ease;
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .hero-section {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+
+      .floating {
+        animation: floating 3s ease-in-out infinite;
+      }
+
+      @keyframes floating {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
+        50% {
+          transform: translateY(-20px);
         }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.4);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .hero-section {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-        
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        
-        @keyframes floating {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            background: rgba(102, 126, 234, 0.2);
-            border: 1px solid rgba(102, 126, 234, 0.4);
-            border-radius: 20px;
-            font-size: 0.875rem;
-            margin: 0.25rem;
-        }
-        
-        .filter-btn {
-            padding: 0.5rem 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-color: transparent;
-        }
-        
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: rgba(102, 126, 234, 0.2);
+        border: 1px solid rgba(102, 126, 234, 0.4);
+        border-radius: 20px;
+        font-size: 0.875rem;
+        margin: 0.25rem;
+      }
+
+      .filter-btn {
+        padding: 0.5rem 1.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-color: transparent;
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      @media (max-width: 768px) {
         .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
+          grid-template-columns: 1fr;
         }
-        
-        @media (max-width: 768px) {
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
+          transform: translateX(-50%) translateY(0);
         }
-        
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
+        40% {
+          transform: translateX(-50%) translateY(-10px);
         }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+        60% {
+          transform: translateX(-50%) translateY(-5px);
         }
-        
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-        
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-        
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .skill-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            margin: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        
-        .skill-badge:hover {
-            background: rgba(102, 126, 234, 0.2);
-            border-color: rgba(102, 126, 234, 0.5);
-        }
+      }
+
+      .section-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 3rem;
+        text-align: center;
+      }
+
+      .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        border-radius: 10px;
+      }
+
+      .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .skill-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        margin: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .skill-badge:hover {
+        background: rgba(102, 126, 234, 0.2);
+        border-color: rgba(102, 126, 234, 0.5);
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
-    <nav class="fixed w-full top-0 z-50 backdrop-blur-md bg-black/30 border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold gradient-text">Pat's Portfolio</div>
-            <div class="hidden md:flex gap-8">
-                <a href="#home" class="nav-link text-gray-300 hover:text-white">Home</a>
-                <a href="#projects" class="nav-link text-gray-300 hover:text-white">Projects</a>
-                <a href="#skills" class="nav-link text-gray-300 hover:text-white">Skills</a>
-                <a href="#contact" class="nav-link text-gray-300 hover:text-white">Contact</a>
-            </div>
+    <nav
+      class="fixed w-full top-0 z-50 backdrop-blur-md bg-black/30 border-b border-white/10"
+    >
+      <div
+        class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <div class="text-2xl font-bold gradient-text">Pat's Portfolio</div>
+        <div class="hidden md:flex gap-8">
+          <a href="#home" class="nav-link text-gray-300 hover:text-white"
+            >Home</a
+          >
+          <a href="#projects" class="nav-link text-gray-300 hover:text-white"
+            >Projects</a
+          >
+          <a href="#skills" class="nav-link text-gray-300 hover:text-white"
+            >Skills</a
+          >
+          <a href="#contact" class="nav-link text-gray-300 hover:text-white"
+            >Contact</a
+          >
         </div>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section id="home" class="hero-section">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <div class="floating">
-                <h1 class="text-6xl md:text-8xl font-bold mb-6">
-                    Hi, I'm <span class="gradient-text">Pat</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-400 mb-8">
-                    Content Creator | Web Developer | AI Enthusiast
-                </p>
-                <div class="flex gap-4 justify-center">
-                    <button onclick="document.getElementById('projects').scrollIntoView({behavior: 'smooth'})" 
-                            class="gradient-bg px-8 py-3 rounded-full font-semibold hover:opacity-90 transition">
-                        View Projects
-                    </button>
-                    <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" 
-                            class="border border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition">
-                        Contact Me
-                    </button>
-                </div>
-            </div>
-            <div class="scroll-indicator">
-                <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-            </div>
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <div class="floating">
+          <h1 class="text-6xl md:text-8xl font-bold mb-6">
+            Hi, I'm <span class="gradient-text">Pat</span>
+          </h1>
+          <p class="text-xl md:text-2xl text-gray-400 mb-8">
+            Content Creator | Web Developer | AI Enthusiast
+          </p>
+          <div class="flex gap-4 justify-center">
+            <button
+              onclick="
+                document
+                  .getElementById('projects')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+              class="gradient-bg px-8 py-3 rounded-full font-semibold hover:opacity-90 transition"
+            >
+              View Projects
+            </button>
+            <button
+              onclick="
+                document
+                  .getElementById('contact')
+                  .scrollIntoView({ behavior: 'smooth' })
+              "
+              class="border border-white/30 px-8 py-3 rounded-full font-semibold hover:bg-white/10 transition"
+            >
+              Contact Me
+            </button>
+          </div>
         </div>
+        <div class="scroll-indicator">
+          <svg
+            class="w-6 h-6 text-white/50"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            ></path>
+          </svg>
+        </div>
+      </div>
     </section>
 
     <!-- Projects Section -->
     <section id="projects" class="py-20 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="section-title gradient-text">Featured Projects</h2>
-            
-            <!-- Filter Buttons -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="web">Web Projects</button>
-                <button class="filter-btn" data-filter="ai">AI Projects</button>
-            </div>
+      <div class="max-w-7xl mx-auto">
+        <h2 class="section-title gradient-text">Featured Projects</h2>
 
-            <!-- Projects Grid -->
-            <div class="project-grid" id="projectsGrid">
-                <!-- Web Projects -->
-                <div class="card rounded-xl p-6 project-item" data-category="web ai">
-                    <div class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 h-48 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">AI Resume Customizer</h3>
-                    <p class="text-gray-400 mb-4">AI-powered resume generation with dark theme and modern UI, featuring personalized content creation</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="tag">React</span>
-                        <span class="tag">AI Integration</span>
-                        <span class="tag">Netlify</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-purple-400 hover:text-purple-300 transition">View Demo →</a>
-                        <a href="#" class="text-gray-400 hover:text-gray-300 transition">GitHub →</a>
-                    </div>
-                </div>
-
-                <div class="card rounded-xl p-6 project-item" data-category="ai">
-                    <div class="bg-gradient-to-br from-green-600/20 to-teal-600/20 h-48 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">MindfulStudy - AI Learning Companion</h3>
-                    <p class="text-gray-400 mb-4">Hackathon project: Detects student stress and provides academic help with mental health support</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="tag">AI</span>
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">Mental Health</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-green-400 hover:text-green-300 transition">Learn More →</a>
-                    </div>
-                </div>
-
-                <div class="card rounded-xl p-6 project-item" data-category="web">
-                    <div class="bg-gradient-to-br from-orange-600/20 to-red-600/20 h-48 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Personal Portfolio Website</h3>
-                    <p class="text-gray-400 mb-4">The website you're looking at right now! Fully responsive design with smooth animations</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="tag">HTML/CSS</span>
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">Tailwind CSS</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-orange-400 hover:text-orange-300 transition">View Source →</a>
-                    </div>
-                </div>
-
-                <div class="card rounded-xl p-6 project-item" data-category="web">
-                    <div class="bg-gradient-to-br from-pink-600/20 to-purple-600/20 h-48 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">E-Commerce Dashboard</h3>
-                    <p class="text-gray-400 mb-4">Modern admin dashboard with analytics, inventory management, and real-time data visualization</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="tag">React</span>
-                        <span class="tag">Chart.js</span>
-                        <span class="tag">REST API</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-pink-400 hover:text-pink-300 transition">View Demo →</a>
-                    </div>
-                </div>
-
-                <div class="card rounded-xl p-6 project-item" data-category="ai web">
-                    <div class="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 h-48 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">AI Chatbot Platform</h3>
-                    <p class="text-gray-400 mb-4">Conversational AI assistant with natural language processing and context awareness</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="tag">Python</span>
-                        <span class="tag">NLP</span>
-                        <span class="tag">API</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-blue-400 hover:text-blue-300 transition">Try It →</a>
-                    </div>
-                </div>
-
-                <div class="card rounded-xl p-6 project-item" data-category="web">
-                    <div class="bg-gradient-to-br from-yellow-600/20 to-orange-600/20 h-48 rounded-lg mb-4 flex items-center justify-center">
-                        <svg class="w-20 h-20 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2">Interactive Learning Platform</h3>
-                    <p class="text-gray-400 mb-4">Educational platform with quizzes, progress tracking, and gamification elements</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                        <span class="tag">Vue.js</span>
-                        <span class="tag">Firebase</span>
-                        <span class="tag">Gamification</span>
-                    </div>
-                    <div class="flex gap-3">
-                        <a href="#" class="text-yellow-400 hover:text-yellow-300 transition">Explore →</a>
-                    </div>
-                </div>
-            </div>
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="web">Web Projects</button>
+          <button class="filter-btn" data-filter="ai">AI Projects</button>
         </div>
+
+        <!-- Projects Grid -->
+        <div class="project-grid" id="projectsGrid">
+          <!-- Web Projects -->
+          <div class="card rounded-xl p-6 project-item" data-category="web ai">
+            <div
+              class="bg-gradient-to-br from-purple-600/20 to-blue-600/20 h-48 rounded-lg mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-20 h-20 text-purple-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">AI Resume Customizer</h3>
+            <p class="text-gray-400 mb-4">
+              AI-powered resume generation with dark theme and modern UI,
+              featuring personalized content creation
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">React</span>
+              <span class="tag">AI Integration</span>
+              <span class="tag">Netlify</span>
+            </div>
+            <div class="flex gap-3">
+              <a
+                href="custom-your-resume.netlify.app"
+                class="text-purple-400 hover:text-purple-300 transition"
+                >View Demo →</a
+              >
+              <a
+                href="https://github.com/Patrickrrr007/Custom_Re"
+                class="text-gray-400 hover:text-gray-300 transition"
+                >GitHub →</a
+              >
+            </div>
+          </div>
+
+          <div class="card rounded-xl p-6 project-item" data-category="ai">
+            <div
+              class="bg-gradient-to-br from-green-600/20 to-teal-600/20 h-48 rounded-lg mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-20 h-20 text-green-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">
+              MindfulStudy - AI Learning Companion
+            </h3>
+            <p class="text-gray-400 mb-4">
+              Hackathon project: Detects student stress and provides academic
+              help with mental health support
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">AI</span>
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Mental Health</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="text-green-400 hover:text-green-300 transition"
+                >Learn More →</a
+              >
+            </div>
+          </div>
+
+          <div class="card rounded-xl p-6 project-item" data-category="web">
+            <div
+              class="bg-gradient-to-br from-orange-600/20 to-red-600/20 h-48 rounded-lg mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-20 h-20 text-orange-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">Personal Portfolio Website</h3>
+            <p class="text-gray-400 mb-4">
+              The website you're looking at right now! Fully responsive design
+              with smooth animations
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Tailwind CSS</span>
+            </div>
+            <div class="flex gap-3">
+              <a
+                href="#"
+                class="text-orange-400 hover:text-orange-300 transition"
+                >View Source →</a
+              >
+            </div>
+          </div>
+
+          <div class="card rounded-xl p-6 project-item" data-category="web">
+            <div
+              class="bg-gradient-to-br from-pink-600/20 to-purple-600/20 h-48 rounded-lg mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-20 h-20 text-pink-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">E-Commerce Dashboard</h3>
+            <p class="text-gray-400 mb-4">
+              Modern admin dashboard with analytics, inventory management, and
+              real-time data visualization
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">React</span>
+              <span class="tag">Chart.js</span>
+              <span class="tag">REST API</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="text-pink-400 hover:text-pink-300 transition"
+                >View Demo →</a
+              >
+            </div>
+          </div>
+
+          <div class="card rounded-xl p-6 project-item" data-category="ai web">
+            <div
+              class="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 h-48 rounded-lg mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-20 h-20 text-blue-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">AI Chatbot Platform</h3>
+            <p class="text-gray-400 mb-4">
+              Conversational AI assistant with natural language processing and
+              context awareness
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">Python</span>
+              <span class="tag">NLP</span>
+              <span class="tag">API</span>
+            </div>
+            <div class="flex gap-3">
+              <a href="#" class="text-blue-400 hover:text-blue-300 transition"
+                >Try It →</a
+              >
+            </div>
+          </div>
+
+          <div class="card rounded-xl p-6 project-item" data-category="web">
+            <div
+              class="bg-gradient-to-br from-yellow-600/20 to-orange-600/20 h-48 rounded-lg mb-4 flex items-center justify-center"
+            >
+              <svg
+                class="w-20 h-20 text-yellow-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                ></path>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold mb-2">
+              Interactive Learning Platform
+            </h3>
+            <p class="text-gray-400 mb-4">
+              Educational platform with quizzes, progress tracking, and
+              gamification elements
+            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="tag">Vue.js</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">Gamification</span>
+            </div>
+            <div class="flex gap-3">
+              <a
+                href="#"
+                class="text-yellow-400 hover:text-yellow-300 transition"
+                >Explore →</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Skills Section -->
     <section id="skills" class="py-20 px-6 bg-black/30">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="section-title gradient-text">Skills & Expertise</h2>
-            
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="text-center">
-                    <div class="text-5xl mb-4">💻</div>
-                    <h3 class="text-2xl font-bold mb-4">Web Development</h3>
-                    <div class="flex flex-wrap justify-center">
-                        <span class="skill-badge">React</span>
-                        <span class="skill-badge">Vue.js</span>
-                        <span class="skill-badge">HTML/CSS</span>
-                        <span class="skill-badge">JavaScript</span>
-                        <span class="skill-badge">Tailwind CSS</span>
-                        <span class="skill-badge">Netlify</span>
-                        <span class="skill-badge">Firebase</span>
-                    </div>
-                </div>
-                
-                <div class="text-center">
-                    <div class="text-5xl mb-4">🤖</div>
-                    <h3 class="text-2xl font-bold mb-4">AI & Technology</h3>
-                    <div class="flex flex-wrap justify-center">
-                        <span class="skill-badge">AI Integration</span>
-                        <span class="skill-badge">API Development</span>
-                        <span class="skill-badge">Python</span>
-                        <span class="skill-badge">Machine Learning</span>
-                        <span class="skill-badge">NLP</span>
-                        <span class="skill-badge">Problem Solving</span>
-                    </div>
-                </div>
+      <div class="max-w-7xl mx-auto">
+        <h2 class="section-title gradient-text">Skills & Expertise</h2>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <div class="text-center">
+            <div class="text-5xl mb-4">💻</div>
+            <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+            <div class="flex flex-wrap justify-center">
+              <span class="skill-badge">React</span>
+              <span class="skill-badge">Vue.js</span>
+              <span class="skill-badge">HTML/CSS</span>
+              <span class="skill-badge">JavaScript</span>
+              <span class="skill-badge">Tailwind CSS</span>
+              <span class="skill-badge">Netlify</span>
+              <span class="skill-badge">Firebase</span>
             </div>
+          </div>
+
+          <div class="text-center">
+            <div class="text-5xl mb-4">🤖</div>
+            <h3 class="text-2xl font-bold mb-4">AI & Technology</h3>
+            <div class="flex flex-wrap justify-center">
+              <span class="skill-badge">AI Integration</span>
+              <span class="skill-badge">API Development</span>
+              <span class="skill-badge">Python</span>
+              <span class="skill-badge">Machine Learning</span>
+              <span class="skill-badge">NLP</span>
+              <span class="skill-badge">Problem Solving</span>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="py-20 px-6">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="section-title gradient-text">Let's Connect</h2>
-            <p class="text-xl text-gray-400 mb-12">
-                Interested in collaboration? Want to discuss a project? Or just want to say hi?
-            </p>
-            
-            <div class="flex flex-wrap justify-center gap-6 mb-12">
-                <a href="mailto:your.email@example.com" 
-                   class="skill-badge hover:scale-110 transition-transform">
-                    📧 Email
-                </a>
-                <a href="https://github.com/yourusername" 
-                   target="_blank"
-                   class="skill-badge hover:scale-110 transition-transform">
-                    🐙 GitHub
-                </a>
-                <a href="https://linkedin.com/in/yourprofile" 
-                   target="_blank"
-                   class="skill-badge hover:scale-110 transition-transform">
-                    💼 LinkedIn
-                </a>
-                <a href="https://twitter.com/yourusername" 
-                   target="_blank"
-                   class="skill-badge hover:scale-110 transition-transform">
-                    🐦 Twitter
-                </a>
-            </div>
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="section-title gradient-text">Let's Connect</h2>
+        <p class="text-xl text-gray-400 mb-12">
+          Interested in collaboration? Want to discuss a project? Or just want
+          to say hi?
+        </p>
 
-            <div class="card rounded-xl p-8 max-w-md mx-auto">
-                <h3 class="text-2xl font-bold mb-6">Quick Contact</h3>
-                <form class="space-y-4">
-                    <input type="text" 
-                           placeholder="Your Name" 
-                           class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-purple-500 focus:outline-none transition">
-                    <input type="email" 
-                           placeholder="Your Email" 
-                           class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-purple-500 focus:outline-none transition">
-                    <textarea placeholder="Your Message..." 
-                              rows="4"
-                              class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-purple-500 focus:outline-none transition resize-none"></textarea>
-                    <button type="submit" 
-                            class="w-full gradient-bg py-3 rounded-lg font-semibold hover:opacity-90 transition">
-                        Send Message
-                    </button>
-                </form>
-            </div>
+        <div class="flex flex-wrap justify-center gap-6 mb-12">
+          <a
+            href="mailto:your.email@example.com"
+            class="skill-badge hover:scale-110 transition-transform"
+          >
+            📧 Email
+          </a>
+          <a
+            href="https://github.com/yourusername"
+            target="_blank"
+            class="skill-badge hover:scale-110 transition-transform"
+          >
+            🐙 GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/yourprofile"
+            target="_blank"
+            class="skill-badge hover:scale-110 transition-transform"
+          >
+            💼 LinkedIn
+          </a>
+          <a
+            href="https://twitter.com/yourusername"
+            target="_blank"
+            class="skill-badge hover:scale-110 transition-transform"
+          >
+            🐦 Twitter
+          </a>
         </div>
+
+        <div class="card rounded-xl p-8 max-w-md mx-auto">
+          <h3 class="text-2xl font-bold mb-6">Quick Contact</h3>
+          <form class="space-y-4">
+            <input
+              type="text"
+              placeholder="Your Name"
+              class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-purple-500 focus:outline-none transition"
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-purple-500 focus:outline-none transition"
+            />
+            <textarea
+              placeholder="Your Message..."
+              rows="4"
+              class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg focus:border-purple-500 focus:outline-none transition resize-none"
+            ></textarea>
+            <button
+              type="submit"
+              class="w-full gradient-bg py-3 rounded-lg font-semibold hover:opacity-90 transition"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 px-6 border-t border-white/10 text-center text-gray-400">
-        <p>© 2026 Pat's Portfolio. Made with ❤️ and lots of ☕</p>
+    <footer
+      class="py-8 px-6 border-t border-white/10 text-center text-gray-400"
+    >
+      <p>© 2026 Pat's Portfolio. Made with ❤️ and lots of ☕</p>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+      // Smooth scrolling for navigation
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
             });
+          }
         });
+      });
 
-        // Project filtering
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const projectItems = document.querySelectorAll('.project-item');
+      // Project filtering
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const projectItems = document.querySelectorAll(".project-item");
 
-        filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const filter = button.getAttribute('data-filter');
-                
-                // Update active button
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
-                
-                // Filter projects
-                projectItems.forEach(item => {
-                    if (filter === 'all') {
-                        item.style.display = 'block';
-                    } else {
-                        const categories = item.getAttribute('data-category').split(' ');
-                        if (categories.includes(filter)) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    }
-                });
-            });
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.getAttribute("data-filter");
+
+          // Update active button
+          filterButtons.forEach((btn) => btn.classList.remove("active"));
+          button.classList.add("active");
+
+          // Filter projects
+          projectItems.forEach((item) => {
+            if (filter === "all") {
+              item.style.display = "block";
+            } else {
+              const categories = item.getAttribute("data-category").split(" ");
+              if (categories.includes(filter)) {
+                item.style.display = "block";
+              } else {
+                item.style.display = "none";
+              }
+            }
+          });
         });
+      });
 
-        // Add fade-in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
+      // Add fade-in animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        projectItems.forEach(item => {
-            item.style.opacity = '0';
-            item.style.transform = 'translateY(30px)';
-            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(item);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
         });
+      }, observerOptions);
 
-        // Form submission (you can replace this with actual backend logic)
-        document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! I will get back to you soon 😊');
-            e.target.reset();
-        });
+      projectItems.forEach((item) => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(30px)";
+        item.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(item);
+      });
+
+      // Form submission (you can replace this with actual backend logic)
+      document.querySelector("form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        alert("Thank you for your message! I will get back to you soon 😊");
+        e.target.reset();
+      });
     </script>
-</body>
+  </body>
 </html>
